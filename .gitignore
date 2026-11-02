@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+*.Rcheck/
+xlaport_*.tar.gz
+.Rproj.user/
+.Rhistory
+python/dist/
+python/*.egg-info/

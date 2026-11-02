@@ -1,0 +1,16 @@
+Package: xlaport
+Title: Run Exported XLA Programs (StableHLO) as R Functions
+Version: 0.0.1
+Authors@R: person("Ben", "Traven", email = "ben.uzh@proton.me", role = c("aut", "cre"))
+Description: Ship kernels written in JAX (or anything else that emits StableHLO) inside an R
+    package and call them as ordinary R functions, with no Python at runtime. Programs are
+    compiled through 'pjrt' on the user's machine for the device in use and cached per session.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Imports: jsonlite, pjrt (>= 0.6.0), stats
+Suggests: testthat (>= 3.0.0)
+URL: https://github.com/btraven00/xlaport
+BugReports: https://github.com/btraven00/xlaport/issues
+Additional_repositories: https://r-xla.r-universe.dev
+Config/testthat/edition: 3
+Config/roxygen2/version: 8.0.0

@@ -1,0 +1,17 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "xlaport"
+version = "0.0.1"
+description = "Export JAX functions as StableHLO kernels for the xlaport R package"
+license = "MIT"
+requires-python = ">=3.10"
+dependencies = ["jax"]
+
+[tool.hatch.build.targets.wheel]
+only-include = ["xlaport_export.py"]
+
+[tool.hatch.build.targets.sdist]
+only-include = ["xlaport_export.py", "pyproject.toml"]

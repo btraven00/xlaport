@@ -1,0 +1,70 @@
+{
+ "xlaport": 1,
+ "kernels": {
+  "affine": {
+   "file": "affine.mlir",
+   "jax": "0.12.0.1",
+   "inputs": [
+    {
+     "name": "X",
+     "shape": [
+      5,
+      3
+     ],
+     "dtype": "f64"
+    },
+    {
+     "name": "b",
+     "shape": [
+      3
+     ],
+     "dtype": "f64"
+    },
+    {
+     "name": "c",
+     "shape": [],
+     "dtype": "f64"
+    }
+   ],
+   "outputs": [
+    {
+     "name": "y",
+     "shape": [
+      5
+     ],
+     "dtype": "f64"
+    }
+   ]
+  },
+  "rowstats": {
+   "file": "rowstats.mlir",
+   "jax": "0.12.0.1",
+   "inputs": [
+    {
+     "name": "A",
+     "shape": [
+      4,
+      6
+     ],
+     "dtype": "f32"
+    }
+   ],
+   "outputs": [
+    {
+     "name": "mean",
+     "shape": [
+      4
+     ],
+     "dtype": "f32"
+    },
+    {
+     "name": "logsumexp",
+     "shape": [
+      4
+     ],
+     "dtype": "f32"
+    }
+   ]
+  }
+ }
+}
