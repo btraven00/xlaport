@@ -21,7 +21,7 @@ missing.
 ```r
 install.packages("pjrt", repos = c("https://r-xla.r-universe.dev", getOption("repos")))
 pjrt::install_pjrt()            # CPU plugin, plus CUDA if an NVIDIA GPU is found
-# then xlaport from this repository, e.g. remotes::install_github("btraven00/xlaport")  (private for now: needs GITHUB_PAT)
+# then xlaport from this repository, e.g. remotes::install_github("btraven00/xlaport")
 ```
 
 ## Shipping a kernel: three steps
@@ -111,14 +111,14 @@ list. Rank-1 results come back as plain R vectors.
 
 - `tests/testthat`: a single-output f64 kernel and a two-output f32 kernel match
   base R; wrong shapes and argument counts give clear errors. The test kernels
-  are rebuilt with `tests/testthat/make_kernels.py`.
+  are rebuilt with `tests/testthat/make_kernels.py`. An i64 output keeps its values (`integer64`).
 - A real kernel: the glm-jax negative-binomial fit (200 genes × 1,000 cells, 4
   covariates) exported this way matches Python to 1.8e-15 from R on CPU. The
   first call took 0.41 s with the compile, later calls 0.011 s.
 
 ## Not yet
 
-- **A compile cache across sessions.** `pjrt` 0.6.0 has no way to save a
+- **A compile cache across sessions.** `pjrt` 0.7.0 has no way to save a
   compiled executable. That needs a small `pjrt` addition (XLA supports
   serialising executables).
 - **Size buckets and padding hooks**, so one kernel serves any data size.
@@ -127,4 +127,4 @@ list. Rank-1 results come back as plain R vectors.
   loads it is untested.
 - **GPU from R.** Untested here so far; only CPU is verified.
 
-Background and roadmap: `~/phd/glm-jax/docs/r-package-plan.md`.
+First user: the [`glmjax`](https://github.com/btraven00/glm-jax/tree/main/r) R package, which does its own size buckets and padding on top of `xla_kernels()`.

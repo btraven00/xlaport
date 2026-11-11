@@ -32,7 +32,8 @@ xla_kernel <- function(name, dir, device = NULL) {
     if (!is.list(res)) res <- list(res)
     res <- lapply(res, function(b) {
       a <- pjrt::as_array(b)
-      if (length(dim(a)) == 1) as.vector(a) else a  # rank-1 results as plain R vectors
+      if (length(dim(a)) == 1) dim(a) <- NULL  # rank-1 results as plain R vectors (as.vector would strip integer64)
+      a
     })
     if (length(res) == 1) res[[1]] else stats::setNames(res, out_names)
   }

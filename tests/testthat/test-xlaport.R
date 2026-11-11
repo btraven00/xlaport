@@ -26,3 +26,8 @@ test_that("wrong shapes and argument counts are refused with the exported signat
 test_that("print shows the signature", {
   expect_output(print(xla_kernel("affine", dir)), "X f64\\[5,3\\], b f64\\[3\\], c f64\\[\\]")
 })
+
+test_that("rank-1 i64 output keeps its values", {
+  A <- matrix(sin(1:24), 4, 6)
+  expect_equal(as.integer(xla_kernel("count", dir)(A)), as.integer(rowSums(A > 0)))
+})

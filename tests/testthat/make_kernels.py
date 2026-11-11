@@ -11,3 +11,4 @@ export(lambda X, b, c: X @ b + c, [S((5, 3), jnp.float64), S((3,), jnp.float64),
        name="affine", out=out, arg_names=["X", "b", "c"], out_names=["y"])
 export(lambda A: (A.mean(axis=1), jax.nn.logsumexp(A, axis=1)), [S((4, 6), jnp.float32)],
        name="rowstats", out=out, arg_names=["A"], out_names=["mean", "logsumexp"])
+export(lambda A: jnp.sum(A > 0, axis=1), [S((4, 6), jnp.float32)], name="count", out=out, arg_names=["A"], out_names=["n"])
