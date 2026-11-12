@@ -17,6 +17,10 @@
 xla_kernel <- function(name, dir, device = NULL) {
   k <- xla_manifest(dir)$kernels[[name]]
   if (is.null(k)) stop(sprintf("no kernel '%s' in %s", name, file.path(dir, "manifest.json")))
+  make_kernel(name, k, dir, device)
+}
+
+make_kernel <- function(name, k, dir, device) {
   file <- normalizePath(file.path(dir, k$file), mustWork = TRUE)
   ins <- k$inputs
   out_names <- vapply(k$outputs, function(o) o$name, "")
@@ -44,8 +48,8 @@ xla_kernel <- function(name, dir, device = NULL) {
 #' @return `xla_kernels()`: a named list of kernel functions.
 #' @export
 xla_kernels <- function(dir, device = NULL) {
-  ks <- names(xla_manifest(dir)$kernels)
-  stats::setNames(lapply(ks, xla_kernel, dir = dir, device = device), ks)
+  ks <- xla_manifest(dir)$kernels  # read once, not once per kernel
+  stats::setNames(lapply(names(ks), function(n) make_kernel(n, ks[[n]], dir, device)), names(ks))
 }
 
 #' @export

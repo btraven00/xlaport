@@ -40,6 +40,12 @@ def export(fn, specs, *, name, out, arg_names=None, out_names=None, allow_custom
 
     arg_names = arg_names or [f"x{i}" for i in range(len(specs))]
     out_names = out_names or [f"y{i}" for i in range(len(outs))]
+    if len(arg_names) != len(specs) or len(out_names) != len(outs):
+        raise ValueError(f"{name}: {len(specs)} inputs and {len(outs)} outputs, but {len(arg_names)} "
+                         f"arg_names and {len(out_names)} out_names")
+    bad = {str(s.dtype) for s in [*specs, *outs]} - set(_DTYPES)
+    if bad:
+        raise ValueError(f"{name}: unsupported dtype {sorted(bad)}; supported: {sorted(_DTYPES)}")
     os.makedirs(out, exist_ok=True)
     with open(os.path.join(out, f"{name}.mlir"), "w") as f:
         f.write(text)
