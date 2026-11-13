@@ -11,6 +11,7 @@ Imports: jsonlite, pjrt (>= 0.6.0), stats
 Suggests: testthat (>= 3.0.0)
 URL: https://github.com/btraven00/xlaport
 BugReports: https://github.com/btraven00/xlaport/issues
+Remotes: r-xla/pjrt
 Additional_repositories: https://r-xla.r-universe.dev
 Config/testthat/edition: 3
 Config/roxygen2/version: 8.0.0
