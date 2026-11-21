@@ -1,6 +1,7 @@
 dir <- test_path("kernels")
 
 test_that("single-output kernel matches R", {
+  skip_if_no_pjrt()
   affine <- xla_kernel("affine", dir)
   X <- matrix(seq(0.5, 7.5, by = 0.5), 5, 3); b <- c(1, -2, 0.25); c0 <- 3
   expect_equal(affine(X, b, c0), drop(X %*% b + c0), tolerance = 1e-14)
@@ -8,6 +9,7 @@ test_that("single-output kernel matches R", {
 })
 
 test_that("multi-output f32 kernel returns a named list", {
+  skip_if_no_pjrt()
   rowstats <- xla_kernels(dir)$rowstats
   A <- matrix(sin(1:24), 4, 6)
   r <- rowstats(A)
@@ -28,6 +30,7 @@ test_that("print shows the signature", {
 })
 
 test_that("rank-1 i64 output keeps its values", {
+  skip_if_no_pjrt()
   A <- matrix(sin(1:24), 4, 6)
   expect_equal(as.integer(xla_kernel("count", dir)(A)), as.integer(rowSums(A > 0)))
 })
